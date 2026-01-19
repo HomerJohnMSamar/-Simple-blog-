@@ -8,6 +8,7 @@ import { supabase } from "./lib/supabase";
 import Login from "./pages/Logout";
 import Register from "./pages/Registration";
 import Dashboard from "./pages/LoginPage";
+import BlogView from "./pages/BlogView";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/" />} />
+        <Route path="/blog/:id" element={<BlogView />} />
       </Routes>
     </BrowserRouter>
   );
