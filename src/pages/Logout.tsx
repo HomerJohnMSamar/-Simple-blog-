@@ -3,6 +3,7 @@ import { supabase } from "../lib/supabase";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/authSlice";
 import { Link } from "react-router-dom";
+import "../App.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -19,12 +20,28 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h2>Logout Page</h2>
-      <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-      <input placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={login}>Login</button>
-      <p>No account? <Link to="/register">Register</Link></p>
+    <div className="login-container">
+      <div className="login-card">
+        <h2>Login</h2>
+
+        <input
+          type="email"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <button onClick={login}>Login</button>
+
+        <p>
+          No account? <Link to="/register">Register</Link>
+        </p>
+      </div>
     </div>
   );
 }
