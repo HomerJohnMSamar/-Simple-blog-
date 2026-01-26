@@ -86,35 +86,42 @@ export default function Pagination() {
 
       <h2>All Blogs</h2>
       {items.map((item) => (
-        <div
-  key={item.id}
-  onClick={() => navigate(`/blog/${item.id}`)}
-  style={{
-    border: "1px solid #ccc",
-    padding: 8,
-    marginBottom: 8,
-    borderRadius: 4,
-    cursor: "pointer"
-  }}
->
-        
-          <h3>{item.title}</h3>
-          <p>{item.content}</p>
-          {item.image_url && (
-            <img src={item.image_url} alt="Blog" style={{ width: "100%", marginTop: 8 }} />
-          )}
-          <button
-  onClick={(e) => {
-    e.stopPropagation();
-    setUpdatingItem(item);
-  }}
->
-  UPDATE
-</button>
+  <div
+    key={item.id}
+    className="blog-card"
+    onClick={() => navigate(`/blog/${item.id}`)}
+  >
+    <h3 className="blog-title">{item.title}</h3>
+    <p className="blog-content">{item.content}</p>
 
-          <Delete id={item.id} onDeleted={() => fetchItems(page)} />
-        </div>
-      ))}
+    {item.image_url && (
+      <img
+        src={item.image_url}
+        alt="Blog"
+        className="blog-image"
+      />
+    )}
+
+    <div
+      className="blog-actions"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button
+        className="update-btn"
+        onClick={() => setUpdatingItem(item)}
+      >
+        UPDATE
+      </button>
+
+      <Delete
+        id={item.id}
+        onDeleted={() => fetchItems(page)}
+      />
+    </div>
+  </div>
+))}
+
+
 
       <div style={{ marginTop: 16 }}>
         <button

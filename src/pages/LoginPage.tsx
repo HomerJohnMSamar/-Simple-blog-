@@ -16,7 +16,7 @@ export default function Dashboard() {
     <div className="dashboard-container">
       <div className="dashboard-card">
         <div className="dashboard-header">
-          <h1>Dashboard</h1>
+          <h1>Welcome! </h1>
           <button className="logout-btn" onClick={logout}>
             Logout
           </button>

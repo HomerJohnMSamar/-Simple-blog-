@@ -9,7 +9,7 @@
 .login-card {
   width: 320px;
   padding: 24px;
-  background-color: #ffffff;
+  background-color: darkgray;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -20,7 +20,7 @@
 }
 
 .login-card input {
-  width: 100%;
+  width: 93%;
   padding: 10px;
   margin-bottom: 12px;
   border-radius: 4px;
@@ -50,8 +50,8 @@
 }
 
 .login-card a {
-  color: orange;
-  text-decoration: none;
+  color: white;
+  text-decoration: always underline;
 }
 
 

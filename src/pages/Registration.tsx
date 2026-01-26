@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
 import { Link } from "react-router-dom";
+import "../App.css";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -12,12 +13,16 @@ export default function Register() {
   };
 
   return (
-    <div>
-      <h2>Registration Page</h2>
+    <div className="login-container">
+      <div className="login-card">
+      <h2>Register Here</h2>
       <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
       <input placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)} />
       <button onClick={register}>Register</button>
-      <Link to="/">Back to Logout Page</Link>
+      <p>
+        <Link to="/">Back to Logout Page</Link>
+      </p>
+      </div>
     </div>
   );
 }

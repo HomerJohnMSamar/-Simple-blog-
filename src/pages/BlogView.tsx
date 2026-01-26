@@ -28,8 +28,12 @@ export default function BlogView() {
   return (
     <div className="page-container">
       <div className="blog-card">
+        <button className="logout-btn" onClick={() => window.location.href = "/"}>
+          Back to Dashboard
+          </button>
         <h1 className="blog-title">{blog.title}</h1>
         <p className="blog-content">{blog.content}</p>
+        
 
         {blog.image_url && (
           <img
@@ -38,6 +42,8 @@ export default function BlogView() {
             className="blog-image"
           />
         )}
+
+        
 
         
 
