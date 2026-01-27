@@ -107,11 +107,18 @@ export default function Pagination() {
       onClick={(e) => e.stopPropagation()}
     >
       <button
-        className="update-btn"
-        onClick={() => setUpdatingItem(item)}
-      >
-        UPDATE
-      </button>
+  className="update-btn"
+  onClick={() => {
+    setUpdatingItem(item);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }}
+>
+  UPDATE
+</button>
+
 
       <Delete
         id={item.id}
