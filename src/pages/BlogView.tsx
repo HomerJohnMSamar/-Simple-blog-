@@ -39,7 +39,7 @@ export default function BlogView() {
           <img
             src={blog.image_url}
             alt="Blog"
-            className="blog-image"
+            className="blog-image1"
           />
         )}
 

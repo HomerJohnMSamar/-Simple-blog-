@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "../lib/supabase";
 import "../App.css";
 
@@ -11,6 +11,8 @@ export default function Comments({ blogId }: { blogId: string }) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState("");
   const [editFile, setEditFile] = useState<File | null>(null);
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -55,6 +57,11 @@ export default function Comments({ blogId }: { blogId: string }) {
 
     setText("");
     setFile(null);
+
+    
+  if (fileInputRef.current) {
+    fileInputRef.current.value = "";
+  }
     fetchComments();
   };
 
@@ -95,10 +102,12 @@ export default function Comments({ blogId }: { blogId: string }) {
         onChange={(e) => setText(e.target.value)}
         placeholder="Write a comment..."
       />
-
+      
       <input
         type="file"
+        ref={fileInputRef}
         onChange={(e) => setFile(e.target.files?.[0] || null)}
+        
       />
 
       <button onClick={addComment}>Post</button>

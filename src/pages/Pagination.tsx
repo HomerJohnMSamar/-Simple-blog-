@@ -1,10 +1,9 @@
 
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import { supabase } from "../lib/supabase";
 import Create from "./Create";
 import Delete from "./Delete";
-import Update from "./Update";
 
 interface Item {
   id: string;
@@ -16,9 +15,8 @@ interface Item {
 
 export default function Pagination() {
   const [items, setItems] = useState<Item[]>([]);
-  const [updatingItem, setUpdatingItem] = useState<Item | null>(null);
   const [page, setPage] = useState(1);
-  const limit = 3; 
+  const limit = 4; 
   const [totalItems, setTotalItems] = useState(0);
   const [userId, setUserId] = useState<string>("");
   const navigate = useNavigate();
@@ -69,27 +67,19 @@ export default function Pagination() {
 
   return (
     <div>
-      {!updatingItem ? (
+      
         <Create onCreated={() => fetchItems(page)} />
-      ) : (
-        <Update
-          item={updatingItem}
-          onSaved={() => {
-            fetchItems(page);
-            setUpdatingItem(null);
-          }}
-          onCancel={() => setUpdatingItem(null)}
-        />
-      )}
+      
 
       <hr />
 
       <h2>All Blogs</h2>
+      <div className="blog-grid">
       {items.map((item) => (
   <div
     key={item.id}
-    className="blog-card"
-    onClick={() => navigate(`/blog/${item.id}`)}
+    
+
   >
     <h3 className="blog-title">{item.title}</h3>
     <p className="blog-content">{item.content}</p>
@@ -106,14 +96,12 @@ export default function Pagination() {
       className="blog-actions"
       onClick={(e) => e.stopPropagation()}
     >
+      
       <button
   className="update-btn"
-  onClick={() => {
-    setUpdatingItem(item);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+  onClick={(e) => {
+    e.stopPropagation();
+    navigate(`/blog/${item.id}/edit`);
   }}
 >
   UPDATE
@@ -124,9 +112,16 @@ export default function Pagination() {
         id={item.id}
         onDeleted={() => fetchItems(page)}
       />
+
+      <button
+        className="view-btn"
+        onClick={() => navigate(`/blog/${item.id}`)}
+        >VIEW
+        </button>
     </div>
   </div>
 ))}
+</div>
 
 
 

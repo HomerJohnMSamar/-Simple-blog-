@@ -16,11 +16,11 @@ export default function Register() {
     <div className="login-container">
       <div className="login-card">
       <h2>Register Here</h2>
-      <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+      <input placeholder="name@example.com" onChange={(e) => setEmail(e.target.value)} />
       <input placeholder="Password" type="password" onChange={(e) => setPassword(e.target.value)} />
       <button onClick={register}>Register</button>
       <p>
-        <Link to="/">Back to Logout Page</Link>
+        <Link to="/">Back to Login Page</Link>
       </p>
       </div>
     </div>

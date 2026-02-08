@@ -55,6 +55,13 @@
 }
 
 
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+
 
 
 /* DASHBOARD */
@@ -149,6 +156,125 @@
   margin-bottom: 24px;
 }
 
+
+
 .divider {
   margin: 24px 0;
+}
+
+
+
+/* Blog view PAGE */
+
+.edit-title {
+  width: 60%;
+  font-size: 20px;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.edit-content {
+  width: 70%;
+  min-height: 120px;   
+  resize: vertical;   
+  padding: 14px;
+  font-size: 15px;
+  line-height: 1.7;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 16px;
+}
+
+
+
+
+
+.blog-card {
+  background: white;
+  border-radius: 6px;
+  padding: 12px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  background: #f9fafb;
+}
+
+
+/* Title & content */
+.blog-title {
+  margin: 0 0 6px;
+}
+
+.blog-content {
+  margin: 0;
+  color: #444;
+}
+
+/* Image */
+.blog-image {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.blog-image1 {
+  width: 50%;
+  margin-top: 10px;
+  border-radius: 4px;
+  object-fit: cover;
+  margin-left: 25%; 
+}
+
+/* Action buttons */
+.blog-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Update button */
+.update-btn {
+  padding: 6px 12px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.update-btn:hover {
+  background: #1d4ed8;
+}
+
+.delete-button {
+  padding: 6px 12px;
+  border: none;
+  background: #dc2626;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background: #b91c1c;
+}
+
+
+.cancel-btn {
+  padding: 6px 12px;
+  border: none;
+  background: #dc2626;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
 }

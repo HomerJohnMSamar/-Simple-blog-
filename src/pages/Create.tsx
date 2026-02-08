@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { supabase } from "../lib/supabase";
+
 
 interface CreateProps {
   onCreated: () => void;
@@ -9,6 +10,7 @@ export default function Create({ onCreated }: CreateProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const createItem = async () => {
     if (!title || !content) {
@@ -64,6 +66,10 @@ export default function Create({ onCreated }: CreateProps) {
     setContent("");
     setImageFile(null);
     onCreated();
+
+    if (fileInputRef.current) {
+    fileInputRef.current.value = "";
+  }
   };
 
   return (
@@ -89,6 +95,7 @@ export default function Create({ onCreated }: CreateProps) {
 
       <input
         type="file"
+        ref={fileInputRef}
         accept="image/*"
         onChange={(e) => setImageFile(e.target.files?.[0] || null)}
       />

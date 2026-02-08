@@ -9,6 +9,9 @@ import Login from "./pages/Logout";
 import Register from "./pages/Registration";
 import Dashboard from "./pages/LoginPage";
 import BlogView from "./pages/BlogView";
+import BlogUpdate from "./pages/BlogUpdate";
+
+
 
 export default function App() {
   const dispatch = useDispatch();
@@ -29,6 +32,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/" />} />
         <Route path="/blog/:id" element={<BlogView />} />
+        <Route path="/blog/:id/edit" element={<BlogUpdate />} />
       </Routes>
     </BrowserRouter>
   );
