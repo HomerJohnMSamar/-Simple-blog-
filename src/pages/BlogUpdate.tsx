@@ -12,7 +12,6 @@ export default function BlogUpdate() {
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Load existing blog
   useEffect(() => {
     const fetchBlog = async () => {
       const { data, error } = await supabase
@@ -39,7 +38,6 @@ export default function BlogUpdate() {
   const updateBlog = async () => {
     let image_url = currentImage;
 
-    // Upload new image if changed
     if (imageFile) {
       const {
         data: { user },
@@ -65,7 +63,11 @@ export default function BlogUpdate() {
 
     const { error } = await supabase
       .from("items")
-      .update({ title, content, image_url })
+      .update({
+        title,
+        content,
+        image_url, // ← will be null if deleted
+      })
       .eq("id", id);
 
     if (error) {
@@ -84,25 +86,38 @@ export default function BlogUpdate() {
         <h2>Edit Blog</h2>
 
         <input
-  className="edit-title"
-  value={title}
-  onChange={(e) => setTitle(e.target.value)}
-  placeholder="Title"
-/>
+          className="edit-title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Title"
+        />
 
-<textarea
-  className="edit-content"
-  value={content}
-  onChange={(e) => setContent(e.target.value)}
-  placeholder="Write your content here..."
-/>
+        <textarea
+          className="edit-content"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Write your content here..."
+        />
 
         {currentImage && (
-          <img
-            src={currentImage}
-            className="blog-image1"
-            alt="Current"
-          />
+          <div className="image-wrapper">
+            <img
+              src={currentImage}
+              className="blog-image1"
+              alt="Current"
+            />
+
+            <button
+              type="button"
+              className="image-remove-btn"
+              onClick={() => {
+                setCurrentImage(null);
+                setImageFile(null);
+              }}
+            >
+              ×
+            </button>
+          </div>
         )}
 
         <input

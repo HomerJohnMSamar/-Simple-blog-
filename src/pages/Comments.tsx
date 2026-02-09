@@ -11,6 +11,7 @@ export default function Comments({ blogId }: { blogId: string }) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState("");
   const [editFile, setEditFile] = useState<File | null>(null);
+  const [removeImage, setRemoveImage] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -35,7 +36,6 @@ export default function Comments({ blogId }: { blogId: string }) {
     if (!userId) return null;
 
     const path = `${userId}/${Date.now()}-${file.name}`;
-
     await supabase.storage.from("blog-images").upload(path, file);
 
     return supabase.storage
@@ -57,16 +57,17 @@ export default function Comments({ blogId }: { blogId: string }) {
 
     setText("");
     setFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
 
-    
-  if (fileInputRef.current) {
-    fileInputRef.current.value = "";
-  }
     fetchComments();
   };
 
   const updateComment = async (comment: any) => {
     let image_url = comment.image_url;
+
+    if (removeImage) {
+      image_url = null;
+    }
 
     if (editFile) {
       image_url = await uploadImage(editFile);
@@ -83,12 +84,13 @@ export default function Comments({ blogId }: { blogId: string }) {
     setEditingId(null);
     setEditText("");
     setEditFile(null);
+    setRemoveImage(false);
+
     fetchComments();
   };
 
   const deleteComment = async (id: string) => {
     if (!window.confirm("Delete this comment?")) return;
-
     await supabase.from("comments").delete().eq("id", id);
     fetchComments();
   };
@@ -102,12 +104,11 @@ export default function Comments({ blogId }: { blogId: string }) {
         onChange={(e) => setText(e.target.value)}
         placeholder="Write a comment..."
       />
-      
+
       <input
         type="file"
         ref={fileInputRef}
         onChange={(e) => setFile(e.target.files?.[0] || null)}
-        
       />
 
       <button onClick={addComment}>Post</button>
@@ -120,6 +121,18 @@ export default function Comments({ blogId }: { blogId: string }) {
                 value={editText}
                 onChange={(e) => setEditText(e.target.value)}
               />
+
+              {c.image_url && !removeImage && (
+                <div className="image-wrapper">
+                  <img src={c.image_url} width={200} />
+                  <button
+                    className="image1-remove-btn"
+                    onClick={() => setRemoveImage(true)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
 
               <input
                 type="file"
@@ -135,9 +148,7 @@ export default function Comments({ blogId }: { blogId: string }) {
             <>
               <p>{c.content}</p>
 
-              {c.image_url && (
-                <img src={c.image_url} width={200} />
-              )}
+              {c.image_url && <img src={c.image_url} width={200} />}
 
               {c.user_id === userId && (
                 <div>
@@ -145,6 +156,7 @@ export default function Comments({ blogId }: { blogId: string }) {
                     onClick={() => {
                       setEditingId(c.id);
                       setEditText(c.content);
+                      setRemoveImage(false);
                     }}
                   >
                     Edit
